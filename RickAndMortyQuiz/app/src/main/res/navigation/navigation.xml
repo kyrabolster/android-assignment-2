@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.rickandmortyquiz.title.TitleFragment"
+        android:label="@string/rick_and_morty"
+        tools:layout="@layout/title_fragment">
+        <action
+            android:id="@+id/action_titleFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.rickandmortyquiz.game.GameFragment"
+        android:label="@string/quiz_time"
+        tools:layout="@layout/game_fragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.rickandmortyquiz.about.AboutFragment"
+        android:label="@string/about_title"
+        tools:layout="@layout/about_fragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.rickandmortyquiz.about.RulesFragment"
+        android:label="@string/rules_title"
+        tools:layout="@layout/rules_fragment" />
+</navigation>

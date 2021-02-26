@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Rick and Morty Quiz</string>
+    <string name="rick_and_morty">Rick and Morty</string>
+    <string name="play">PLAY</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about">About</string>
+    <string name="rules">Rules</string>
+    <string name="about_title">About Rick and Morty</string>
+    <string name="rules_title">The Rules</string>
+    <string name="quiz_time">Quiz Time</string>
+    <string name="quiz_rules">Select the answer from the options given. Once you answer a question you can"'t change your answer. Once you have answered all the questions you will go to a page that tells you your score.
+    You can return to the title screen using the up or back from within the fame screen, and this will also end your game.</string>
+</resources>
