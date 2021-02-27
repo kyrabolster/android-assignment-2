@@ -18,7 +18,14 @@
         android:id="@+id/gameFragment"
         android:name="com.example.rickandmortyquiz.game.GameFragment"
         android:label="@string/quiz_time"
-        tools:layout="@layout/game_fragment" />
+        tools:layout="@layout/game_fragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_gameOverFragment"
+            app:destination="@id/gameOverFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/titleFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.rickandmortyquiz.about.AboutFragment"
@@ -29,4 +36,10 @@
         android:name="com.example.rickandmortyquiz.about.RulesFragment"
         android:label="@string/rules_title"
         tools:layout="@layout/rules_fragment" />
+    <fragment
+        android:id="@+id/gameOverFragment"
+        android:name="com.example.rickandmortyquiz.gameOver.GameOverFragment"
+        android:label="game_over_fragment"
+        tools:layout="@layout/game_over_fragment"
+        />
 </navigation>
