@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.rickandmortyquiz.R
 import com.example.rickandmortyquiz.databinding.GameFragmentBinding
 
-
 /**
  * Game Fragment where the game is played
  */
@@ -22,9 +21,7 @@ class GameFragment : Fragment() {
 
     private lateinit var binding: GameFragmentBinding
 
-
     private lateinit var viewModel: GameViewModel
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,15 +33,12 @@ class GameFragment : Fragment() {
                 false
         )
 
-
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
-        // Observer for the Game finished event
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })
 
-        //set the viewmodel for databinding
         binding.gameViewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
@@ -53,7 +47,7 @@ class GameFragment : Fragment() {
     }
 
     private fun gameFinished() {
-//        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
         val action = GameFragmentDirections.actionGameFragmentToGameOverFragment()
         action.score = viewModel.scoreString.value?:""
         NavHostFragment.findNavController(this).navigate(action)

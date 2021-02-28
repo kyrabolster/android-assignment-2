@@ -9,7 +9,10 @@
     <string name="rules_title">The Rules</string>
     <string name="quiz_time">Quiz Time</string>
     <string name="quiz_rules">Select the answer from the options given. Once you answer a question you can"'t change your answer. Once you have answered all the questions you will go to a page that tells you your score.
-    You can return to the title screen using the up or back from within the fame screen, and this will also end your game.</string>
+
+You can return to the title screen using the up or back from within the fame screen, and this will also end your game.</string>
+    <string name="quiz_about">The Rick and Morty quiz will help remind you of important concepts you have learned by watching Rick and Morty.</string>
+
 
     <string name="question_1">The Rick &amp; Morty That The Show Follows Are Originally From Dimension C-173</string>
     <string name="question_2">Jerry\'s Station Wagon Is Based On The Car From National Lampoon\'s Vacation?</string>

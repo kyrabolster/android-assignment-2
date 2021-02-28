@@ -10,9 +10,6 @@ import androidx.navigation.ui.NavigationUI
 import com.example.rickandmortyquiz.R
 import com.example.rickandmortyquiz.databinding.TitleFragmentBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
 /**
  * Title fragment for the app landing screen
  */
@@ -23,18 +20,13 @@ class TitleFragment : Fragment() {
         val binding: TitleFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.title_fragment, container, false)
 
-        binding.playGameButton.setOnClickListener {
-            findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        binding.playGameButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
-
-//        binding.playGameButton.setOnClickListener { view: View ->
-//            view.findNavController()
-//                .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
-
 
         setHasOptionsMenu(true)
 
-        //returns inflated view
         return binding.root
     }
 

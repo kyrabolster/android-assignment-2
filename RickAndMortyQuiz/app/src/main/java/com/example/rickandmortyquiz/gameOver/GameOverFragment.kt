@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.rickandmortyquiz.R
 import com.example.rickandmortyquiz.databinding.GameOverFragmentBinding
+import com.example.rickandmortyquiz.game.GameViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class GameOverFragment : Fragment() {
 
+    private lateinit var viewModel: GameViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -29,11 +34,15 @@ class GameOverFragment : Fragment() {
             inflater, R.layout.game_over_fragment, container, false)
 
         val args = GameOverFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(context, "${args.score}", Toast.LENGTH_LONG).show()
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.game_over_fragment, container, false)
+        binding.finalScoreText.text = args.score
+
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+
+        binding.gameViewModel = viewModel
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
-
-
 }

@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModel
 import com.example.rickandmortyquiz.R
 
 data class Question(
-        val questionId: Int,
-        val answer: Boolean,
-        var attempted: Boolean = false, // if the user attempted to answer or not
-        var answered: Boolean = false // which answer the user selected
+    val questionId: Int,
+    val answer: Boolean,
+    var attempted: Boolean = false, // if the user attempted to answer or not
+    var answered: Boolean = false // which answer the user selected
 )
 
 class GameViewModel : ViewModel() {
@@ -56,6 +56,77 @@ class GameViewModel : ViewModel() {
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
+    init {
+        _score.value = 0
+        resetQuestionBank()
+        newGame()
+    }
+
+    fun newGame() {
+        resetQuestionBank()
+        questionIndex = 0
+        _eventGameFinish.value = false
+        _question.value = questionBank[questionIndex].questionId
+        updateQuestion()
+    }
+
+    private fun updateQuestion() {
+        _question.value = questionBank[questionIndex].questionId
+        _attempted.value = questionBank[questionIndex].attempted
+        _isCorrect.value =
+            questionBank[questionIndex].answer == questionBank[questionIndex].answered
+
+        _checkFalse.value = !questionBank[questionIndex].answered
+        _checkTrue.value = questionBank[questionIndex].answered
+
+        _scoreString.value = "Your score is: ${_score.value} / ${questionBank.count()}"
+
+        if (questionsAttempted() == questionBank.size) {
+            onGameFinish()
+        }
+    }
+
+    fun onAnswered(answerValue: Boolean) {
+        questionBank[questionIndex].attempted = true
+
+        _attempted.value = questionBank[questionIndex].attempted
+
+        questionBank[questionIndex].answered = answerValue
+
+        if (questionBank[questionIndex].answered == questionBank[questionIndex].answer) {
+            _score.value = (_score.value)?.plus(1)
+            _isCorrect.value = true
+        } else {
+            _isCorrect.value = false
+        }
+
+        updateQuestion()
+    }
+
+    fun nextQuestion() {
+        _attempted.value = false
+
+        if ((questionIndex + 1) == questionBank.size) {
+            questionIndex = 0
+        } else {
+            _question.value = questionBank[questionIndex].questionId
+            questionIndex++
+        }
+
+        updateQuestion()
+    }
+
+    fun prevQuestion() {
+        if (questionIndex == 0) {
+            questionIndex = questionBank.size - 1
+        } else {
+            questionIndex--
+            _question.value = questionBank[questionIndex].questionId
+        }
+
+        updateQuestion()
+    }
+
     fun onGameFinish() {
         _eventGameFinish.value = true
     }
@@ -66,104 +137,29 @@ class GameViewModel : ViewModel() {
 
     fun questionsAttempted() = questionBank.count { it.attempted }
 
-    fun newGame() {
-        resetQuestionBank()
-        questionIndex = 0
-        _eventGameFinish.value = false
-        _question.value = questionBank[questionIndex].questionId
-        updateQuestion()
-    }
-
-    //once already answered?
-    private fun updateQuestion() {
-        _question.value = questionBank[questionIndex].questionId
-        _attempted.value = questionBank[questionIndex].attempted
-        _isCorrect.value = questionBank[questionIndex].answer  == questionBank[questionIndex].answered
-
-        _checkFalse.value = !questionBank[questionIndex].answered
-        _checkTrue.value = questionBank[questionIndex].answered
-
-
-//        _scoreString.value = "Your score is: ${_score.value} / ${questionBank.count { it.answered }}"
-        _scoreString.value = "Your score is: ${_score.value} / ${questionBank.count()}"
-
-
-        if (questionsAttempted() == questionBank.size) {
-            onGameFinish()
-        }
-    }
-
     private fun resetQuestionBank() {
         questionBank = mutableListOf(
             Question(R.string.question_1, false),
             Question(R.string.question_2, true),
-            Question(R.string.question_3, true)//,
-//            Question(R.string.question_4, false),
-//            Question(R.string.question_5, false),
-//            Question(R.string.question_6, true),
-//            Question(R.string.question_7, false),
-//            Question(R.string.question_8, true),
-//            Question(R.string.question_9, false),
-//            Question(R.string.question_10, false),
-//            Question(R.string.question_11, false),
-//            Question(R.string.question_12, true),
-//            Question(R.string.question_13, false),
-//            Question(R.string.question_14, true),
-//            Question(R.string.question_15, false),
-//            Question(R.string.question_16, false),
-//            Question(R.string.question_17, true),
-//            Question(R.string.question_18, false),
-//            Question(R.string.question_19, false),
-//            Question(R.string.question_20, true)
+            Question(R.string.question_3, true),
+            Question(R.string.question_4, false),
+            Question(R.string.question_5, false),
+            Question(R.string.question_6, true),
+            Question(R.string.question_7, false),
+            Question(R.string.question_8, true),
+            Question(R.string.question_9, false),
+            Question(R.string.question_10, false),
+            Question(R.string.question_11, false),
+            Question(R.string.question_12, true),
+            Question(R.string.question_13, false),
+            Question(R.string.question_14, true),
+            Question(R.string.question_15, false),
+            Question(R.string.question_16, false),
+            Question(R.string.question_17, true),
+            Question(R.string.question_18, false),
+            Question(R.string.question_19, false),
+            Question(R.string.question_20, true)
         )
         questionBank.shuffle()
     }
-
-    init {
-//        _question.value = 0
-        _score.value = 0
-        resetQuestionBank()
-//        nextQuestion()
-        newGame()
-    }
-
-    fun nextQuestion() {
-        _attempted.value = false
-
-        if (questionBank.isEmpty()) {
-            resetQuestionBank()
-        } else {
-            _question.value = questionBank[questionIndex].questionId
-            questionIndex++
-        }
-        updateQuestion()
-    }
-
-    fun prevQuestion() {
-        if(questionIndex != 0) {
-            questionIndex--
-            _question.value = questionBank[questionIndex].questionId
-        }
-        updateQuestion()
-    }
-
-    fun onAnswered(answerValue : Boolean)  {
-        questionBank[questionIndex].attempted = true
-
-        _attempted.value = questionBank[questionIndex].attempted
-
-        questionBank[questionIndex].answered = answerValue
-
-        if(questionBank[questionIndex].answered == questionBank[questionIndex].answer) {
-            _score.value = (_score.value)?.plus(1)
-            _isCorrect.value = true
-        } else {
-            _isCorrect.value = false
-        }
-
-        updateQuestion()
-    }
-
-
-
 }
