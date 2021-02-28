@@ -9,6 +9,7 @@
             name="gameViewModel"
             type="com.example.rickandmortyquiz.game.GameViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_layout"
         android:layout_width="match_parent"

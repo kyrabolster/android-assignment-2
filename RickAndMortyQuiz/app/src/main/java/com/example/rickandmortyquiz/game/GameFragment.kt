@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.rickandmortyquiz.R
 import com.example.rickandmortyquiz.databinding.GameFragmentBinding
 
@@ -51,10 +53,10 @@ class GameFragment : Fragment() {
     }
 
     private fun gameFinished() {
-        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-//        val action = GameFragmentDirections.actionGameFragmentToGameOverFragment() //added gradle plugin
-//        action.scoreString = viewModel.score.value?:0
-//        findNavController(this).navigate(action)
+//        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
+        val action = GameFragmentDirections.actionGameFragmentToGameOverFragment()
+        action.score = viewModel.scoreString.value?:""
+        NavHostFragment.findNavController(this).navigate(action)
         viewModel.onGameFinishComplete()
     }
 }

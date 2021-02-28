@@ -39,7 +39,12 @@
     <fragment
         android:id="@+id/gameOverFragment"
         android:name="com.example.rickandmortyquiz.gameOver.GameOverFragment"
-        android:label="game_over_fragment"
+        android:label="Game Over"
         tools:layout="@layout/game_over_fragment"
-        />
+        >
+        <argument
+            android:name="score"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
 </navigation>
